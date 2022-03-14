@@ -1,0 +1,85 @@
+{% load static %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="ru"> 
+  <head>  
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="icon" href="{% static 'img/fav/fav.ico' %}" type="image">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/fav/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/fav/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/fav/favicon-16x16.png' %}">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>Профайл пользователя {{ author.get_full_name }}</title>
+  </head>
+  <body>       
+    <header>
+      <nav class="navbar navbar-light" style="background-color: lightskyblue">
+        <div class="container">
+          <a class="navbar-brand" href="/">
+            <img src="/static/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <span style="color:red">Ya</span>tube
+          </a>
+        </div>
+      </nav>      
+    </header>
+    <main>
+      <div class="container py-5">
+      <div class="mb-5">        
+        <h1>Все посты пользователя {{ author.get_full_name }} </h1>
+        <h3>Всего постов: {{count_posts}} </h3>
+          {% if request.user != author %}
+            {% if following %}
+              <a
+              class="btn btn-lg btn-light"
+              href="{% url 'posts:profile_unfollow' author.username %}" role="button"
+              >
+              Отписаться
+              </a>
+            {% else %}
+              <a
+              class="btn btn-lg btn-primary"
+              href="{% url 'posts:profile_follow' author.username %}" role="button"
+              >
+              Подписаться
+              </a>
+            {% endif %}  
+          {% endif %}
+      </div>
+        {% for post in page_obj %}
+        <article>
+          <ul>
+            <li>
+              Автор: {{ author.get_full_name }}
+              <a href="{% url 'posts:profile' author %}">все посты пользователя</a>
+            </li>
+            <li>
+              Дата публикации: {{ post.pub_date|date:"d E Y" }}
+            </li>
+          </ul>
+          <p>
+            {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+              <img class="card-img my-2" src="{{ im.url }}">
+            {% endthumbnail %}
+          </p>
+          <p> {{ post.text|wordwrap:120|linebreaksbr }}          
+          </p>
+          <a href="{% url 'posts:post_detail' post.id %}">подробная информация </a>
+        </article>
+            {% if post.group.slug is None %}
+                запись не относится к группе
+            {% else %}
+                <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+            {% endif %}        
+            {% if not forloop.last %}<hr>{% endif %}
+        {% endfor %}
+        {% include "posts/includes/paginator.html" %} 
+      </div>
+    </main>
+    <footer class="border-top text-center py-3">
+      <p>© <!--2021 --> Copyright <span style="color:red">Ya</span>tube</p>    
+    </footer>
+  </body>
+</html> 
