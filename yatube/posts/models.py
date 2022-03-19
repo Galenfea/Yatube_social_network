@@ -1,6 +1,8 @@
+from multiprocessing import AuthenticationError
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import F, Q
 
 User = get_user_model()
 
@@ -70,7 +72,7 @@ class Comment(models.Model):
     - author - автор (при удалении автора удаляются все сообщения)
     - post - сообщение для которого написаны комментарии.
     '''
-    text = models.TextField(settings.TEXT_NAME)
+    text = models.TextField(settings.COMMENT_NAME)
     created = models.DateTimeField(settings.DATE_NAME, auto_now_add=True)
     author = models.ForeignKey(
         User,
@@ -82,13 +84,13 @@ class Comment(models.Model):
         Post,
         on_delete=models.CASCADE,
         related_name='comments',
-        verbose_name=settings.COMMENT_NAME
+        verbose_name=settings.TEXT_NAME,
     )
 
     class Meta:
         ordering = ('-created',)
         verbose_name = settings.COMMENT_NAME
-        verbose_name_plural = settings.COMMENT_NAME
+        verbose_name_plural = settings.COMMENTS_NAME
 
     def __str__(self):
         return(f'{self.text[:15]}')
@@ -113,3 +115,14 @@ class Follow(models.Model):
         verbose_name=settings.AUTHOR_NAME,
         null=True
     )
+
+    class Meta:
+        ordering = ('-author',)
+        verbose_name = settings.FOLLOW_NAME
+        verbose_name_plural = settings.FOLLOWS_NAME
+        constraints = [
+            models.CheckConstraint(check=~Q(F('user') == F('author')),
+                                   name='disable_self-following'),
+            models.UniqueConstraint(fields=['user', 'author'],
+                                    name='unique_following')
+        ]

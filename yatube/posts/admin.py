@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import admin
 
-from .models import Group, Post
+from .models import Comment, Follow, Group, Post
 
 
 @admin.register(Post)
@@ -31,4 +31,32 @@ class GroupAdmin(admin.ModelAdmin):
     list_display = ('pk', 'title', 'slug', 'description',)
     list_editable = ('title', 'description')
     search_fields = ('title',)
+    empty_value_display = settings.EMPTY
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    '''Источник конфигурации модели Comment, регистрируемой в админке, позволяет:
+    - отображать в админке первичный ключ, текст комментария, дату создания,
+    автора комментария;
+    - редактировать текст комментария;
+    - проводить поиск по тексту комментария;
+    - выводить "-пусто-" в полях со значением None.'''
+    list_display = ('pk', 'text', 'created', 'author', 'post',)
+    list_editable = ('text',)
+    search_fields = ('text',)
+    list_filter = ('created',)
+    empty_value_display = settings.EMPTY
+
+
+@admin.register(Follow)
+class FollowAdmin(admin.ModelAdmin):
+    '''Источник конфигурации модели Follow, регистрируемой в админке, позволяет:
+    - отображать в админке первичный ключ, подписчика и
+    автора, на которого происходит подписка;
+    - удалять подписку;
+    - проводить поиск по авторам и подписчикам;
+    - выводить "-пусто-" в полях со значением None.'''
+    list_display = ('pk', 'author', 'user',)
+    search_fields = ('author', 'user',)
     empty_value_display = settings.EMPTY

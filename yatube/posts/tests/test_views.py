@@ -12,39 +12,35 @@ from django.urls import reverse
 
 from ..models import Follow, Group, Post, User
 
-GROUP_1_SLUG = 'test-slug'
-GROUP_1_TITLE = 'Тестовая группа'
-GROUP_1_DESCRIPTION = 'Тестовое описание группы'
-GROUP_1_URL = '/group/test-slug/'
-
-GROUP_2_SLUG = 'best-slug'
-GROUP_2_TITLE = 'Тестовая группа 2'
-GROUP_2_DESCRIPTION = 'Тестовое описание группы 2'
+CONSTANT{
+GROUP_1_SLUG: 'test-slug',
+GROUP_1_TITLE : 'Тестовая группа',
+GROUP_1_DESCRIPTION: 'Тестовое описание группы',
+GROUP_1_URL : '/group/test-slug/',
+GROUP_2_SLUG : 'best-slug',
+GROUP_2_TITLE : 'Тестовая группа 2',
+GROUP_2_DESCRIPTION : 'Тестовое описание группы 2',
+TEMP_CACHE_TIME : 10,
+LAST_POST_IND : 16,
+# NUM_DIF_POSTS it is NUMBER_OF_DIFFERENT_POSTS
+NUM_DIF_POSTS : 3,
+NUM_THE_SAME_TYPE_POSTS : 13,
+POSTS_INDEX_TMP : 'posts/index.html',
+POSTS_INDEX_URL : '/',
+POSTS_CREATE_TMP : 'posts/create_post.html',
+POSTS_CREATE_URL : '/create/',
+POSTS_DETAIL_TMP : 'posts/post_detail.html',
+POSTS_GROUP_TMP : 'posts/group_list.html',
+POSTS_PROFILE_TMP : 'posts/profile.html',
+POSTS_PROFILE_USER_1_URL : '/profile/user_1/',
+POSTS_FOLLOW_USER_1_URL : '/profile/user_1//follow/',
+USER_1_NAME : 'user_1',
+USER_2_NAME : 'user_2',
+USER_3_NAME : 'user_3',
+}
 
 TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
-TEMP_CACHE_TIME = 10
-
-LAST_POST_IND = 16
-# NUM_DIF_POSTS it is NUMBER_OF_DIFFERENT_POSTS
-NUM_DIF_POSTS = 3
-NUM_THE_SAME_TYPE_POSTS = 13
-
-POSTS_INDEX_TMP = 'posts/index.html'
-POSTS_INDEX_URL = '/'
-
-POSTS_CREATE_TMP = 'posts/create_post.html'
-POSTS_CREATE_URL = '/create/'
-POSTS_DETAIL_TMP = 'posts/post_detail.html'
 POSTS_EDIT_TMP = POSTS_CREATE_TMP
-POSTS_GROUP_TMP = 'posts/group_list.html'
-POSTS_PROFILE_TMP = 'posts/profile.html'
-POSTS_PROFILE_USER_1_URL = '/profile/user_1/'
-POSTS_FOLLOW_USER_1_URL = '/profile/user_1//follow/'
-
-USER_1_NAME = 'user_1'
-USER_2_NAME = 'user_2'
-USER_3_NAME = 'user_3'
-
 
 class PostPagesTests(TestCase):
     @classmethod

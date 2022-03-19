@@ -142,14 +142,17 @@ EMPTY = '-пусто-'
 GROUP_NAME = 'название сообщества'
 GROUPS_NAME = 'Сообщества'
 COMMENT_NAME = 'комментарий'
+COMMENTS_NAME = 'комментарии'
 URL_NAME = 'Ссылка на сообщество'
 DESCRIPTION_NAME = 'Описание сообщества'
 # Post model
-TEXT_NAME = 'Текст'
+TEXT_NAME = 'Текст поста'
 AUTHOR_NAME = 'Автор'
 DATE_NAME = 'Дата публикации'
 POST_NAME = 'запись'
 POSTS_NAME = 'записи'
+FOLLOW_NAME = 'подписку'
+FOLLOWS_NAME = 'Подписки'
 
 # 403
 CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
