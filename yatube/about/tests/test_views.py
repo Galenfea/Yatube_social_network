@@ -2,6 +2,7 @@
 from django.test import Client, TestCase
 from django.urls import reverse
 
+
 ABOUT_AUTHOR_TMPLT = 'about/author.html'
 ABOUT_TECH_TMPLT = 'about/tech.html'
 

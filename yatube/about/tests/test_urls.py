@@ -3,6 +3,8 @@ from http import HTTPStatus
 
 from django.test import Client, TestCase
 
+# Импорты отсортированы библиотекой isort
+
 ABOUT_AUTHOR = '/about/author/'
 ABOUT_TECH = '/about/tech/'
 

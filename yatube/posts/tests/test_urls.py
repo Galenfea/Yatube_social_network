@@ -6,6 +6,7 @@ from django.test import Client, TestCase
 
 from ..models import Group, Post, User
 
+
 GROUP_1_SLUG_URL = '/group/test-slug/'
 GROUP_1_SLUG = 'test-slug'
 GROUP_1_TITLE = 'Тестовая группа'

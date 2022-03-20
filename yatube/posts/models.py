@@ -1,8 +1,8 @@
-from multiprocessing import AuthenticationError
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import F, Q
+
 
 User = get_user_model()
 
@@ -121,8 +121,11 @@ class Follow(models.Model):
         verbose_name = settings.FOLLOW_NAME
         verbose_name_plural = settings.FOLLOWS_NAME
         constraints = [
-            models.CheckConstraint(check=~Q(F('user') == F('author')),
+            models.CheckConstraint(check=~Q(user=F('author')),
                                    name='disable_self-following'),
             models.UniqueConstraint(fields=['user', 'author'],
                                     name='unique_following')
         ]
+
+    def __str__(self):
+        return(f'{self.user} => {self.author}')
