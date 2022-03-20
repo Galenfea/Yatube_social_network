@@ -1,18 +1,15 @@
-# posts/tests/test_urls.py
-# from http import HTTPStatus
-
+# users/tests/test_urls.py
 from django.test import Client, TestCase
-
-from ...posts.models import Group, Post, User
+from posts.models import User
 
 app_name = 'users'
 
 CON = {
-    'LOGOUT_URL': '/logout/',
+    'LOGOUT_URL': '/auth/logout/',
     'LOGOUT_TEMPLATE': 'users/logged_out.html',
-    'LOGIN_URL': 'login/',
+    'LOGIN_URL': '/auth/login/',
     'LOGIN_TEMPLATE': 'users/login.html',
-    'SIGNUP_URL': 'signup/',
+    'SIGNUP_URL': '/auth/signup/',
     'SIGNUP_TEMPLATE': 'users/signup.html',
     'USER_1': 'user_1'
 }
@@ -29,7 +26,7 @@ class PostURLTests(TestCase):
         cls.authorized_client.force_login(cls.user)
 
     def test_urls_uses_correct_template(self):
-        """URL-адрес использует соответствующий шаблон."""
+        """URL-адреса login и signup используют соответствующие шаблоны."""
         adresses = {
             CON['LOGIN_URL']: CON['LOGIN_TEMPLATE'],
             CON['SIGNUP_URL']: CON['SIGNUP_TEMPLATE'],
@@ -38,5 +35,8 @@ class PostURLTests(TestCase):
             with self.subTest(adress=adress):
                 response = self.guest_client.get(adress)
                 self.assertTemplateUsed(response, template)
+
+    def test_logout_correct_template(self):
+        """URL-адрес logout использует соответствующий шаблон."""
         response_auth = self.authorized_client.get(CON['LOGOUT_URL'])
         self.assertTemplateUsed(response_auth, CON['LOGOUT_TEMPLATE'])
