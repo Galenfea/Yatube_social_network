@@ -1,5 +1,6 @@
 # users/tests/test_forms.py
 from django.test import Client, TestCase
+
 from posts.models import User
 
 CON = {

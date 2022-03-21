@@ -186,9 +186,6 @@ class PostPagesTests(TestCase):
                                 kwargs={'username': self.user.username})))
         self.assertEqual(response.context.get('author').username,
                          self.user.username)
-        self.assertEqual(response.context.get('count_posts'),
-                         CON['NUM_THE_SAME_TYPE_POSTS']
-                         )
 
     def test_post_details_context(self):
         """Шаблон post_detail сформирован с контекстом post,
@@ -205,9 +202,6 @@ class PostPagesTests(TestCase):
                          )
         self.assertEqual(self.group.title, response.context.get('group_name'))
         # У пользователя cls.user 13 сообщений и 3 у cls.user_2
-        self.assertEqual(CON['NUM_THE_SAME_TYPE_POSTS'],
-                         response.context.get('count_posts')
-                         )
 
     def test_create_post_context(self):
         """Шаблон post_create сформирован с контекстом form."""
