@@ -71,9 +71,7 @@ def post_detail(request, post_id):
     template = 'posts/post_detail.html'
     post = Post.objects.get(pk=post_id)
     author = get_object_or_404(get_user_model(), id=post.author_id)
-#    count_posts = author.posts.count()
     comment_form = CommentForm(request.POST or None)
-    comments = post.comments.all()
     if post.group_id is None:
         group_name = ''
     else:
@@ -81,8 +79,7 @@ def post_detail(request, post_id):
     context = {'post': post,
                'author': author,
                'group_name': group_name,
-               'form': comment_form,
-               'comments': comments
+               'form': comment_form
                }
     return render(request, template, context)
 
