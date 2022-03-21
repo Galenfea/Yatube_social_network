@@ -50,7 +50,6 @@ def profile(request, username):
     template = 'posts/profile.html'
     author = get_object_or_404(get_user_model(), username=username)
     posts = author.posts.all()
-    count_posts = author.posts.count()
     following = False
     if request.user.is_authenticated:
         # Вложенное условие потому, что
@@ -59,7 +58,6 @@ def profile(request, username):
         if Follow.objects.filter(user=request.user, author=author).exists():
             following = True
     context = {'author': author,
-               'count_posts': count_posts,
                'following': following
                }
     context = posts_paginator(request, posts, context)
