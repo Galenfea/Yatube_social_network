@@ -148,5 +148,5 @@ dmypy.json
 # Review request
 yatube/static/
 yatube/templates/posts/bootstrap.min.css
-
 yatube/media/
+static/
