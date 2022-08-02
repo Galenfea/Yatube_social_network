@@ -10,7 +10,7 @@
 ## Применяемые технологии:
 
 - Python 3.9.6
-- Django 2,2,16
+- Django 2.2.16
 - SQLite 3
 - sorl-thumbnail 12.7.0
 
